@@ -9,7 +9,7 @@ Deze bestanden kan je gebruiken bij het uitvoeren van de demo van de Smart Data 
   
 # Start LDES server
 4. Start your LDES server met volgende command:
-`docker-compose.yml uit demo_verkeersboete kan gebruikt worden`
+`docker-compose.yml` uit demo_verkeersboete kan gebruikt worden
 
 Wanneer je nu naar 
 http://localhost:8080/verkeersboete gaat, zoal je zien dat er reeds een LDES gepubliceerd is, maar nog zonder members.
