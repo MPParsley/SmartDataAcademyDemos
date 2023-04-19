@@ -1,0 +1,77 @@
+version: ‘3'
+volumes:
+  nifi-database-repository:
+  nifi-flowfile-repository:
+  nifi-content-repository:
+  nifi-provenance-repository:
+  nifi-state:
+  nifi-logs:
+  nifi-nars:
+  nifi-conf:
+networks:
+  ldes:
+    name: network
+    driver: bridge
+services:
+  nifi:
+    image: ghcr.io/informatievlaanderen/ldi-workbench-nifi:20230417t154912
+    container_name: nifi-graph2
+    restart: unless-stopped
+    ports:
+      # HTTPS
+      - 8000:8000
+    volumes:
+      - ./nifi-extensions:/opt/nifi/nifi-current/extensions
+    environment:
+      - NIFI_WEB_HTTP_PORT=${NIFI_UI_PORT:-8000}
+      #- NIFI_JVM_HEAP_INIT=8g
+      #- NIFI_JVM_HEAP_MAX=8g
+    networks:
+      - ldes
+  graphdb:
+    image: ontotext/graphdb:10.0.2
+    container_name: graphdb4
+    ports:
+      # HTTP
+      - 7200:7200
+    networks:
+      - ldes
+  ldes-server:
+    container_name: quick-start_ldes-server
+    image: ghcr.io/informatievlaanderen/ldes-server:20230314T0913
+    environment:
+      - SIS_DATA=/tmp
+      - SPRING_DATA_MONGODB_DATABASE=verkeersboete
+      - LDES_COLLECTIONNAME=verkeersboete
+      - LDES_MEMBERTYPE=https://politiezonex.be/ns/verkeersboete#Verkeersboete
+      - SPRING_DATA_MONGODB_HOST=ldes-mongodb
+      - SPRING_DATA_MONGODB_PORT=27017
+      - LDES_HOSTNAME=http://${HOSTNAME}:8080
+      - LDES_SHAPE=
+      - VIEW_TIMESTAMPPATH=http://www.w3.org/ns/prov#generatedAtTime
+      - VIEW_VERSIONOFPATH=http://purl.org/dc/terms/isVersionOf
+      - VIEWS_0_FRAGMENTATIONS_0_NAME=pagination
+      - VIEWS_0_NAME=by-page
+      - VIEWS_0_FRAGMENTATIONS_0_CONFIG_MEMBERLIMIT=1
+    ports:
+      - 8080:8080
+    depends_on:
+      - ldes-mongodb
+    networks:
+      - ldes
+  ldes-mongodb:
+    container_name: quick-start_ldes-mongodb
+    image: mongo:6.0.4
+    ports:
+      - 27017:27017
+    networks:
+      - ldes
+  ldes-cli:
+    image: ghcr.io/informatievlaanderen/ldes-cli:20230222T0959
+    container_name: quick-start_ldes-client-cli
+    command: "--url http://localhost:8080/verkeersboete/by-page --input-format application/json-ld"
+    profiles:
+      - delayed-started
+    network_mode: service:ldes-server
+    networks:
+      - ldes
