@@ -36,10 +36,10 @@
   "@type": "Verkeersboete",
   "bedrag": {
     "@type": "Bedrag",
-    "Bedrag.hoeveelheid": "450",
+    "Bedrag.hoeveelheid": "50",
     "eenheid": "EUR"
   },
-  "reden": "Te snel gereden: 200 km/u ipv 50 km/u",
+  "reden": "Te snel gereden: 70 km/u ipv 50 km/u",
   "toegewezenAan": {
     "@id": "https://example.org/id/persoon/xy",
     "@type": "Persoon",
