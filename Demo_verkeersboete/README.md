@@ -23,10 +23,7 @@ http://localhost:8080/verkeersboete gaat, zoal je zien dat er reeds een LDES gep
 4. ga eerst naar mapje met alle verkeersboetes:
 ```bash
 cd verkeersboetes
-```
 
-5. Gebruiken we dit command:
-```bash
 curl -X POST http://localhost:9004/contentListener -H "Content-Type: application/json-ld" -d @verkeersboete1.jsonld
 ```
 
@@ -37,10 +34,8 @@ Met deze stappen kan een een jsonld file omgezet worden naar een versie object m
 
 ```bash
 cd verkeersboetes
-```
 
 
-```bash
 curl -X POST http://localhost:9003/data  -H "Content-Type: application/ld+json" -d "@verkeersboete1.jsonld"
 ```
 
