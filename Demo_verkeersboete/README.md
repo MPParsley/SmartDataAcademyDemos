@@ -1,9 +1,15 @@
+We vertrekken voor deze demo van OSLO compliant jsonld files van verkeersboetes. Deze kunnen terug gevonden worden in deze map
+
+
+
 # Start Docker
 
 1. Voordat je aan de slag kan gaan, dient Docker geïnstalleerd te zijn (https://www.docker.com/products/docker-desktop/)
-2. Zorg ervoor dat de volgende poorten vrij zijn: 8080, 8000 and 27017
+2. Zorg ervoor dat de volgende poorten vrij zijn: 8080, 8000, 9003, 9004 en 27017
 3. Om zeker te zijn dat de LDES Client via docker de gepubliceerde LDES in localhost correct kan uitlezen, gebruiken we de hostname van jouw laptop/desktop.
-   Ga naar een bash terminal (bv. in Visual Studio Code) en gebruik dit command `export HOSTNAME=$(hostname)`
+   Ga naar een bash terminal (bv. in Visual Studio Code) en gebruik dit command
+   
+   `export HOSTNAME=$(hostname)`
   
 # Start LDES server
 4. Start your LDES server met volgende command:
@@ -21,7 +27,7 @@ cd verkeersboetes
 
 5. Gebruiken we dit command:
 ```bash
-curl -X POST http://localhost:8080/verkeersboete -H "Content-Type: application/json-ld" -d @verkeersboete.jsonld
+curl -X POST http://localhost:9004/contentListener -H "Content-Type: application/json-ld" -d @verkeersboete1.jsonld
 ```
 
 # Publiceer de json-ld files als LDES members via Linked data interactions orchestrator:
@@ -35,7 +41,7 @@ cd verkeersboetes
 
 
 ```bash
-curl -X POST http://localhost:9003/data  -H "Content-Type: application/ld+json" -d "@Verkeersboete.jsonld"
+curl -X POST http://localhost:9003/data  -H "Content-Type: application/ld+json" -d "@verkeersboete1.jsonld"
 ```
 
 # Bekijken van gepubliceerde LDES
