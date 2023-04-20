@@ -57,7 +57,6 @@ services:
       # HTTPS
       - 8000:8000
       - 9004:9004
-      - 8080:8080
     volumes:
       - ./nifi-extensions:/opt/nifi/nifi-current/extensions
     environment:
