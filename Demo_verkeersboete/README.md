@@ -24,7 +24,7 @@ http://localhost:8080/verkeersboete gaat, zoal je zien dat er reeds een LDES gep
 ```bash
 cd verkeersboetes
 
-curl -X POST http://localhost:9004/contentListener -H "Content-Type: application/json-ld" -d @verkeersboete1.jsonld
+curl -X POST http://localhost:9004/contentListener -H "Content-Type: application/ld+json" -d @verkeersboete1.jsonld
 ```
 
 # Publiceer de json-ld files als LDES members via Linked data interactions orchestrator:
