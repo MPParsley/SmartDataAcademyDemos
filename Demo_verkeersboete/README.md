@@ -12,11 +12,15 @@ We vertrekken voor deze demo van OSLO compliant jsonld files van verkeersboetes.
    `export HOSTNAME=$(hostname)`
   
 # Start LDES server
-4. Start your LDES server met volgende command:
-`docker-compose.yml uit demo_verkeersboete kan gebruikt worden`
+4. Start de LDES server met volgend commando:
+```bash
+cd Demo_verkeersboete
+
+docker compose up -d
+```
 
 Wanneer je nu naar 
-http://localhost:8080/verkeersboete gaat, zoal je zien dat er reeds een LDES gepubliceerd is, maar nog zonder members.
+http://localhost:8080/verkeersboete gaat, zal je zien dat er reeds een LDES gepubliceerd is, maar nog zonder members.
 
 # Publiceer de json-ld files als LDES members naar Apache NiFi listener:
 
@@ -34,7 +38,6 @@ Met deze stappen kan een een jsonld file omgezet worden naar een versie object m
 
 ```bash
 cd verkeersboetes
-
 
 curl -X POST http://localhost:9003/data  -H "Content-Type: application/ld+json" -d "@verkeersboete1.jsonld"
 ```
